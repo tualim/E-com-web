@@ -1,0 +1,39 @@
+<%- include('header') %>
+
+    <div class="mt-3">
+        <div class="h4">Order details</div>
+        <div>
+            <table class="mt-3 table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th width="120px">Picture</th>
+                        <th>Barcode</th>
+                        <th>List</th>
+                        <th>Price</th>
+                        <th>Qty</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% orderDetails.forEach((orderDetail) => { %>
+                        <tr>
+                            <td><img src="/images/<%= orderDetail.img %>" width="100px" /></td>
+                            <td class="text-center"><%= orderDetail.barcode %></td>
+                            <td class="text-center"><%= orderDetail.name %></td>
+                            <td class="text-center"><%= numeral(orderDetail.price).format() %></td>
+                            <td class="text-center"><%= numeral(orderDetail.qty).format() %></td>
+                            <td class="text-center"><%= numeral(orderDetail.qty * orderDetail.price).format() %></td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+        <div class="alert alert-success mt-3 h4 text-right">
+            Quantity: <%= totalQty %>
+            Total Price: <%= numeral(totalPrice).format() %>
+        </div>
+
+    </div>
+
+
+<%- include('footer') %>

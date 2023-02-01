@@ -1,0 +1,53 @@
+<%- include('header') %>
+    
+<div class="card">
+    <div class="card-body">
+        <div class="card-title">
+            system user
+        </div>
+        <a href="/adduser" class="btn btn-info">
+            <span class="material-symbols-outlined material-icon">
+                add
+            </span>
+            add
+        </a>
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped mt-2">
+                <thead>
+                    <tr>
+                        <th style="width: 17.5%; text-align: center;"></th>
+                        <th style="width: 50%; text-align: center;">Name</th>
+                        <th style="text-align: center;">Username</th>
+                        <th style="text-align: center;">Level</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% users.forEach((user)=> { %>
+                        <tr>
+                            <td>
+                                <a href="/edituser/<%= user.id %>" class="btn btn-info">
+                                    <span class="material-symbols-outlined material-icon">
+                                        edit
+                                    </span>
+                                    edit
+                                </a>
+                                <a href="/deleteuser/<%= user.id %>" class="btn btn-danger" onclick="return confirm('confirm delete?')">
+                                    <span class="material-symbols-outlined material-icon">
+                                        delete
+                                    </span>
+                                    delete
+                                </a>
+                            </td>
+                            <td style="text-align: center;"><%= user.name %></td>
+                            <td style="text-align: center;"><%= user.usr %></td>
+                            <td style="text-align: center;"><%= user.level %></td>
+                        </tr>
+                    <% }); %>    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<%- include('footer') %>

@@ -1,0 +1,28 @@
+<%- include('header') %>
+    
+
+
+<div class="text-center"><h4><span class="material-symbols-outlined" style="margin-right: 10px;">
+  point_of_sale
+  </span>ระบบร้านค้าออนไลน์</h4></div>
+<form action="/login" method="post">
+  <div class="card mt-3">
+    <div class="card-body">
+      <div>Log in</div>
+      <div>Username</div>
+      <div><input type="text" class="form-control" name="usr"></div>
+      <div>Password</div>
+      <div><input type="password" class="form-control" name="pwd"></div>
+      <div>
+        <button type="submit" class="btn btn-primary mt-3"> 
+          <span class="material-symbols-outlined material-icon">
+            login
+            </span>
+            Login</button>
+      </div>
+    </div>
+  </div>
+</form>
+
+
+<%- include('footer') %>

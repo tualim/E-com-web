@@ -1,0 +1,14 @@
+<%- include('header') %>
+
+    <div class="container">
+        <form action="" method="post">
+            <div><img src="/images/<%= product.img %>" width="150px" alt=""></div>
+            <div>Barcode: <%= product.barcode %></div>
+            <div>Product: <%= product.name %></div>
+            <div>Price: <%= product.price %></div>
+            <div>Number of item : <input type="text" name="qty" value="<%= product.qty %>" class="form-control" /></div>
+            <button type="submit" class="btn btn-info">Save</button>
+        </form>
+    </div>
+
+<%- include('footer') %>

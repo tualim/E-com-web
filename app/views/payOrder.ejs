@@ -1,0 +1,19 @@
+<%- include('header') %>
+
+
+    <div class="mt-3">Billing for: <%= orderId %></div>
+    <form action="" method="post">
+        <div>
+            <label for="">Pay date</label>
+            <input type="date" class="form-control" name="pay_date" />
+        </div>
+        <div class="mt-3">
+            <label for="">Remark</label>
+            <input type="text" name="pay_remark" class="form-control" />
+        </div>
+        <div>
+            <button class="btn btn-info" type="submit">Save</button>
+        </div>
+    </form>
+
+<%- include('footer') %>

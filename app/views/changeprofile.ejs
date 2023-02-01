@@ -1,0 +1,35 @@
+<%- include('header') %>
+
+
+<form action="/changeprofile" method="post">
+    <div class="card">
+        <div class="card-body">
+            <div class="card-title">edit</div>
+            <div class="mt-3">
+                <label>name</label>
+                <input type="text" name="name" class="form-control"  value="<%= user.name %>"/>
+            </div>
+            <div class="mt-3">
+                <label>username</label>
+                <input type="text" name="usr" class="form-control" value="<%= user.usr %>" />
+            </div>
+            <div class="mt-3">
+                <label>password</label>
+                <input type="password" name="pwd" class="form-control" />
+            </div>
+            <div class="mt-3">
+                <button type="submit" class="btn btn-info">Save</button>
+            </div>
+
+            <% if(session.message != undefined) { %>
+                <div class="alert alert-success mt-3">
+                    <%= session.message %>
+                    <% session.message = undefined %> 
+                </div>
+            <% } %>    
+        </div>
+    </div>
+</form>
+
+
+<%- include('footer') %>

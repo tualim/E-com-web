@@ -1,0 +1,31 @@
+<%- include('page_header') %>
+
+<form action="" method="post">
+    <div class="container mt-3">
+        <div class="card">
+            <div class="input-group">
+                <div class="input-group-text">Tel.</div>
+                    <input class="form-control">
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-info">Find</button>
+                </div>
+            </div>
+
+            <% if (orders.length > 0) { %> 
+                <% orders.forEach((order) => { %>
+                <div class="alert alert-info mt-3">
+                    <div>Customer</div>
+                    <div><%= order.name %></div>
+                    <div>Tracking number</div>
+                    <div><%= order.track_code %></div>
+                    <div>Courier</div>
+                    <div><%= order.track_name %></div>
+                    <div>ship date</div>
+                    <div><%= order.send_date %></div>
+                </div>
+                <% }) %>
+            <% } %>
+        </div>
+    </div>
+</form>    
+<%- include('page_footer') %>

@@ -1,0 +1,30 @@
+<%- include('header') %>
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-title">Send <%= orderId %></div>
+                <form action="" method="post">
+                    <div>
+                        <label for="">Courier name</label>
+                        <input type="text" name="track_name" class="form-control">
+                    </div>
+                    <div>
+                        <label for="">Tracking number</label>
+                        <input type="text" name="track_code" class="form-control">
+                    </div>
+                    <div>
+                        <label for="">Shipping date</label>
+                        <input type="date" name="send_date" class="form-control">
+                    </div>
+                    <div>
+                        <label for="">Remark</label>
+                        <input type="text" name="send_remark" class="form-control">
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-info">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+<%-include('footer') %>

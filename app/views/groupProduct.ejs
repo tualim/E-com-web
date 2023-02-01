@@ -1,0 +1,47 @@
+<%- include('header') %>
+
+    <div class="card mt-3">
+        <div class="card-body">
+            <div class="card-title">product type</div>
+            <div class="mt-2">
+                <a href="/addGroupProduct" class="btn btn-info">
+                    <span class="material-symbols-outlined material-icon">
+                        add
+                    </span>
+                    add product
+                </a>
+
+                <table class="table table-bordered table-striped mt-2">
+                    <thead>
+                        <tr>
+                            <th style="width: 25%;"></th>
+                            <th>product type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% groupProducts.forEach((groupProduct) => { %>
+                            <tr>
+                                <td class="text-center">
+                                    <a href="/editGroupProduct/<%= groupProduct.id %>" class="btn btn-info">
+                                        <span class="material-symbols-outlined material-icon">
+                                            edit
+                                          </span>
+                                          edit
+                                    </a>
+                                    <a href="/deleteGroupProduct/<%= groupProduct.id %>" onclick="return confirm('delete?')" class="btn btn-danger">
+                                        <span class="material-symbols-outlined material-icon">
+                                            close
+                                          </span>
+                                          delete
+                                    </a>
+                                </td>
+                                <td><%= groupProduct.name %></td>
+                            </tr>
+                        <% }) %>    
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+<%- include('footer') %>

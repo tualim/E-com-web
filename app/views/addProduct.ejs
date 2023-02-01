@@ -1,0 +1,50 @@
+<%- include('header') %>
+    <form enctype="multipart/form-data" method="post">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-title">Add product</div>
+                <div class="mt-3">
+                    <label>Product type</label>
+                    <select name="group_product_id" class="form-control" id="">
+                        <% groupProducts.forEach((groupProduct) => { %>
+                            <option value="<%= groupProduct.id %>" <% if (product.group_product_id == groupProduct.id) { %>
+                                selected
+                            <% } %>    
+                            >
+                                
+                                <%= groupProduct.name %>
+                                
+                            </option>
+                        <% }) %>
+                    </select>
+                </div>
+                <div class="mt-2">
+                    <label>Barcode</label>
+                    <input type="text" name="barcode" class="form-control" id="" value="<%= product.barcode %>">
+                </div>
+                <div class="mt-2">
+                    <label>Product Name</label>
+                    <input type="text" name="name" class="form-control" id="" value="<%= product.name %>">
+                </div>
+                <div class="mt-2">
+                    <label>Cost</label>
+                    <input type="text" name="cost" class="form-control" id="" value="<%= product.cost %>">
+                </div>
+                <div class="mt-2">
+                    <label>Price</label>
+                    <input type="text" name="price" class="form-control" id="" value="<%= product.price %>">
+                </div>
+                <div class="mt-2">
+                    <label>Images</label>
+                    <% if (product.img != undefined) { %>
+                    <div class="mb-3 mt-3"><img src="/images/<%= product.img %>" width="100px" alt=""></div>
+                    <% } %>
+                    <input type="file" name="img" class="form-control" id="">
+                </div>
+                <div class="mt-2">
+                    <button type="submit" class="btn btn-success">Save</button>
+                </div>
+            </div>
+        </div>
+    </form>
+<%- include('footer') %>

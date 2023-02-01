@@ -1,0 +1,25 @@
+<%- include('header') %>
+    <div class="card">
+        <div class="card-body">
+            <div class="card-title">Sales by Product</div>
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Barcode</th>
+                        <th>List</th>
+                        <th>Sales</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% arr.forEach((item) => { %>
+                       <tr>
+                            <td><%= item.barcode %></td>
+                            <td><%= item.name %></td>
+                            <td><%= item.totalPrice %></td>
+                       </tr>  
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+<%- include('footer') %>

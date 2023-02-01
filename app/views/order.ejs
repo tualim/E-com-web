@@ -1,0 +1,57 @@
+<%- include('header') %>
+
+    
+        <div class="h4 mt-3">Order detail</div>
+        <div>
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th style="width: 25%;"></th>
+                        <th>Billing</th>
+                        <th>Name</th>
+                        <th>tel</th>
+                        <th>Address</th>
+                        <th>pay date</th>
+                        <th>send date</th>
+                        <th>tracking number</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% orders.forEach((order) => { %>
+                        <tr>
+                            <td class="text-center">
+                                <a href="payOrder/<%= order.id %>" class="btn btn-info">
+                                    <span class="material-symbols-outlined material-icon">
+                                    attach_money
+                                  </span>
+                                  Paid
+                                </a>
+                                <a href="/sendOrder/<%= order.id %>" class="btn btn-success">
+                                        <span class="material-symbols-outlined material-icon">
+                                        local_shipping
+                                      </span>
+                                      Deliver
+                                </a>
+                                <a href="/deleteOrder/<%= order.id %>" class="btn btn-danger" onclick="return confirm('Delete?')">
+                                    <span class="material-symbols-outlined material-icon">
+                                        close
+                                      </span>
+                                      Cancel
+                                </a>
+                            </td>
+                            <td><a href="/orderInfo/<%= order.id %>"><%= order.id %></a></td>
+                            <td><%= order.name %></td>
+                            <td><%= order.phone %></td>
+                            <td><%= order.address %></td>
+                            <td><%= dayjs(order.pay_date).format('DD/MM/YYYY') %></td>
+                            <td><%= dayjs(order.send_date).format(dayFormat) %></td>
+                            <td><%= order.track_code %></td>
+                        </tr>
+                    <% }) %>
+                    
+                </tbody>
+            </table>
+        </div>
+    
+
+<%- include('footer') %>

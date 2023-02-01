@@ -1,0 +1,33 @@
+<%- include('header') %>
+
+
+    <form method="post">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-title">Add user</div>
+                <div class="mt-2">
+                    <label>Name</label>
+                    <input type="text" name="name" class="form-control" value="<%= user.name %>" />
+                </div>
+                <div class="mt-2">
+                    <label>Username</label>
+                    <input type="text" name="usr" class="form-control" value="<%= user.usr %>" />
+                </div>
+                <div class="mt-2">
+                    <label>Password</label>
+                    <input type="password" name="pwd" class="form-control"value="<%= user.pwd %>" />
+                </div>
+                <div class="mt-2">
+                    <label>Level</label>
+                    <div>
+                        <span><input type="radio" name="level" value="user" <% if (user.level == 'user') { %> checked <% } %> /> User</span> 
+                        <span><input type="radio" name="level" value="admin" <% if (user.level == 'admin') { %> checked <% } %> /> Admin</span> 
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <button type="submit" class="btn btn-success">Add user</button>
+                </div>
+            </div>
+        </div>
+    </form>
+<%- include('footer') %>
