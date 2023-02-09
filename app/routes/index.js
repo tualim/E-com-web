@@ -43,7 +43,14 @@ router.get('/',async function(req, res, next) {
     params.push('%' + req.query.search + '%');
   }
 
+  //filter group product
+  if(req.query.groupProductId != undefined) {
+    sql += ' WHERE group_product_id = ?';
+    params.push(req.query.groupProductId);
+  }
+
   sql += ' ORDER BY id DESC'
+
   try{
   let [products, fields] = await conn.query(sql, params,); 
   sql = 'SELECT * FROM tb_group_product ORDER BY name';
