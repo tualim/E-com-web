@@ -727,11 +727,9 @@ router.get('/reportSalePerProduct', isLogin, async(req, res) => {
     let id = product.id;
 
 
-    sql = `SELECT SUM(qty * price) AS totalPrice
-    FROM tb_order_detail 
-    LEFT JOIN tb_order ON tb_order.id = tb_order_detail.order_id
-    WHERE tb_order_detail.product_id = ?
-    AND tb_order.pay_date IS NOT NULL`;
+    sql = `SELECT SUM(qty * price) AS totalPrice FROM tb_order_detail 
+    LEFT JOIN tb_order ON tb_order.id = tb_order_detail.order_id 
+    WHERE tb_order_detail.product_id = ? AND tb_order.pay_date IS NOT NULL`;
 
     let [rows2, fields2] = await conn.query(sql, [id]);
     let totalPrice = rows2[0].totalPrice;
@@ -766,7 +764,13 @@ router.post('/trackOrder', (req, res) => {
 })
 
 router.get('/importToStock',isLogin, (req, res) => {
-  res.render('importToStock')
+  let sql = `SELECT tb_product.barcode, tb_product.name, tb_stock_in.qty, tb_stock_in.created_date, tb_stock_in.id, tb_stock_in.remark 
+  FROM tb_stock_in LEFT JOIN tb_product ON tb_stock_in.product_id = tb_product.id`
+
+  conn.query(sql, (err, result) => {
+    if(err) throw err;
+    res.render('importToStock', {stockIns: result });
+  })
 })
 
 router.post('/importToStock',isLogin, async(req, res) => {
@@ -779,7 +783,13 @@ router.post('/importToStock',isLogin, async(req, res) => {
   try{
   let [product, fields] = await conn.query(sql, params);
 
-    if(product != indefined){
+    if(product.length > 0){
+      let id = product[0].id;
+      sql = 'INSERT INTO tb_stock_in(product_id, qty, created_date, remark) VALUES(?, ?, NOW(), ?)';
+      params = [id, req.body['qty'], req.body['remark']];
+
+      conn.query(sql, params);
+      res.redirect('/importToStock');
 
     }else {
       res.send('Not found')
@@ -788,6 +798,101 @@ router.post('/importToStock',isLogin, async(req, res) => {
   }catch(e) {
     res.send('Error:' + e)
   }
+})
+
+
+router.get('/deleteImportToStock/:id', isLogin, (req, res) => {
+  let sql = 'DELETE FROM tb_stock_in WHERE id = ?';
+  let params = [req.params.id];
+
+  conn.query(sql, params, (err, result) => {
+    if(err) throw err;
+    res.redirect('/importToStock');
+  })
+})
+
+
+router.get('/exportFromStock', isLogin, (req, res) => {
+  let sql = `SELECT tb_product.barcode, tb_product.name, tb_stock_out.qty, tb_stock_out.created_date, tb_stock_out.id, tb_stock_out.remark 
+  FROM tb_stock_out LEFT JOIN tb_product ON tb_stock_out.product_id = tb_product.id`
+
+  conn.query(sql, (err, result) => {
+    if(err) throw err;
+    res.render('exportFromStock', {stockOuts: result });
+  })
+})
+
+router.post('/exportFromStock',isLogin, async(req, res) => {
+  let barcode = req.body['product_barcode'];
+  let conn = require('./connect2');
+
+  let sql = 'SELECT id FROM tb_product WHERE barcode = ?';
+  let params = [barcode];
+
+  try{
+  let [product, fields] = await conn.query(sql, params);
+
+    if(product.length > 0){
+      let id = product[0].id;
+      sql = 'INSERT INTO tb_stock_out(product_id, qty, created_date, remark) VALUES(?, ?, NOW(), ?)';
+      params = [id, req.body['qty'], req.body['remark']];
+
+      conn.query(sql, params);
+      res.redirect('/exportFromStock');
+
+    }else {
+      res.send('Not found')
+    }
+
+  }catch(e) {
+    res.send('Error:' + e)
+  }
+})
+
+router.get('/deleteExportFromStock/:id', isLogin, (req, res) => {
+  let sql = 'DELETE FROM tb_stock_out WHERE id = ?';
+  let params = [req.params.id];
+
+  conn.query(sql, params, (err, result) => {
+    if(err) throw err;
+    res.redirect('/exportFromStock');
+  })
+})
+
+router.get('/reportStock', isLogin, async (req, res) => {
+  let sql = 'SELECT * FROM tb_product ORDER BY name ASC'
+  let conn = require('./connect2');
+  let arr = [];
+  
+  try{
+  let [products, fields] = await conn.query(sql);
+  
+    for(let i = 0; i < products.length; i++){
+      let product = products[i];
+      let params = [product.id];
+
+      sql = 'SELECT SUM(qty) AS qtyIn FROM tb_stock_in WHERE product_id = ?';
+      let[stockIn] = await conn.query(sql, params);
+
+      sql = 'SELECT SUM(qty) AS qtyOut FROM tb_stock_out WHERE product_id = ?';
+      let[stockOut] = await conn.query(sql, params);   
+
+    
+      let objProduct = {
+        id: product.id,
+        barcode: product.barcode,
+        name: product.name,
+        qtyIn: stockIn[0].qtyIn,
+        qtyOut: stockOut[0].qtyOut
+      }
+      arr.push(objProduct)
+    }
+    res.render('reportStock', {arr: arr});
+
+  }catch(e){
+    res.send('Error: ' + e);
+  }
+  
 })
 
 

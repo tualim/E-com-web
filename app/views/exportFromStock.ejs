@@ -1,7 +1,7 @@
 <%- include('header') %>
 <div class="card">
     <div class="card-body">
-        <div class="card-title">Stock In</div>
+        <div class="card-title">Stock Out</div>
         <form action="" method="post">
             <div>
                 <label for="">Product Barcode</label>
@@ -26,15 +26,15 @@
                     <th>Barcode</th>
                     <th>Product</th>
                     <th>Quantity</th>
-                    <th>Ins date</th>
+                    <th>Out date</th>
                     <th>Remark</th>
                 </tr>
             </thead>
             <tbody>
-                <% stockIns.forEach((item) => { %> 
+                <% stockOuts.forEach((item) => { %> 
                 <tr>
                     <td>
-                        <a href="/deleteImportToStock/<%= item.id %>" class="btn btn-danger" onclick="return confirm('delete')"><span class="material-symbols-outlined material-icon">
+                        <a href="/deleteExportFromStock/<%= item.id %>" class="btn btn-danger" onclick="return confirm('delete')"><span class="material-symbols-outlined material-icon">
                             close
                           </span>
                         </a>
@@ -47,7 +47,9 @@
                 </tr>
                 <% }) %>
             </tbody>
-        </table>
+        </table> 
+       
+
     </div> 
 </div>
 <%- include('footer') %>
