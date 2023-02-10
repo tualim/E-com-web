@@ -765,5 +765,31 @@ router.post('/trackOrder', (req, res) => {
   })
 })
 
+router.get('/importToStock',isLogin, (req, res) => {
+  res.render('importToStock')
+})
+
+router.post('/importToStock',isLogin, async(req, res) => {
+  let barcode = req.body['product_barcode'];
+  let conn = require('./connect2');
+
+  let sql = 'SELECT id FROM tb_product WHERE barcode = ?';
+  let params = [barcode];
+
+  try{
+  let [product, fields] = await conn.query(sql, params);
+
+    if(product != indefined){
+
+    }else {
+      res.send('Not found')
+    }
+
+  }catch(e) {
+    res.send('Error:' + e)
+  }
+})
+
+
 module.exports = router;
 

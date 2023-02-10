@@ -1,0 +1,24 @@
+<%- include('header') %>
+<div class="card">
+    <div class="card-body">
+        <div class="card-title">Stock In</div>
+        <form action="" method="post">
+            <div>
+                <label for="">Product</label>
+                <input type="text" class="form-control" name="product_barcode">
+            </div>
+            <div>
+                <label for="">Quantity</label>
+                <input type="text" class="form-control" name="qty">
+            </div>
+            <div>
+                <label for="">Remark</label>
+                <input type="text" class="form-control" name="remark">
+            </div>
+            <div>
+                <button type="submit" class="btn btn-info">Save</button>
+            </div>
+        </form>
+    </div> 
+</div>
+<%- include('footer') %>
